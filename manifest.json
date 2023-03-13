@@ -1,11 +1,10 @@
 {
-	"id": "obsidian-sample-plugin",
-	"name": "Sample Plugin",
+	"id": "obsidian-daily-questions",
+	"name": "Obsidian Daily Questions",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "When activated this plugin will ask you a couple of questions from random notes you have in your vault as a quiz.",
+	"author": "Goran Zdjelar",
+	"authorUrl": "https://github.com/goran-zdjelar",
 	"isDesktopOnly": false
 }

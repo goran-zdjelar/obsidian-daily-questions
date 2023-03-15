@@ -23,11 +23,9 @@ export class ExampleView extends ItemView {
 
 	async onOpen() {
 		this.root.render(
-			<React.StrictMode>
-				<AppContext.Provider value={this.app}>
-					<Questions />
-				</AppContext.Provider>
-			</React.StrictMode>
+			<AppContext.Provider value={this.app}>
+				<Questions />
+			</AppContext.Provider>
 		);
 	}
 

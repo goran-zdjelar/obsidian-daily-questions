@@ -15,15 +15,18 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function getQuestionFromOpenAi(text: string) {
-	const response = await openai.createCompletion({
-		model: "text-davinci-003",
-		prompt: `Read following text and ask me up to 5 questions as a quiz. Don't provide answers: ${text}`,
-		temperature: 0.7,
-		max_tokens: 1000,
-		top_p: 1,
-		frequency_penalty: 0,
-		presence_penalty: 0,
-	});
+	const response = await openai.createCompletion(
+		{
+			model: "text-davinci-003",
+			prompt: `Read following text and ask me up to 5 questions as a quiz. Don't provide answers: ${text}`,
+			temperature: 0.7,
+			max_tokens: 1000,
+			top_p: 1,
+			frequency_penalty: 0,
+			presence_penalty: 0,
+		},
+		{}
+	);
 
 	return parseQuestions(response.data.choices[0].text);
 }

@@ -114,16 +114,6 @@ export default class ObsidianDailyQuestion extends Plugin {
 	}
 
 	async activateView() {
-		const test = this.app.vault.getMarkdownFiles();
-
-		// const randomNumber = getRandomNumber(0, test.length - 1);
-
-		// const file = await this.app.vault.read(test[randomNumber]);
-
-		// const questions = await getQuestionFromOpenAi(file);
-
-		// console.log(questions);
-
 		this.app.workspace.detachLeavesOfType(DAILY_QUESTIONS_VIEW);
 
 		await this.app.workspace.getRightLeaf(false).setViewState({

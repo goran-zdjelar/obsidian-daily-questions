@@ -34,10 +34,7 @@ export default class ObsidianDailyQuestion extends Plugin {
 				this.activateView();
 			}
 		);
-		// Perform additional things with the ribbon
 		ribbonIconEl.addClass("my-plugin-ribbon-class");
-
-		// console.log(this.app.fileManager);
 
 		// // This adds a simple command that can be triggered anywhere
 		// this.addCommand({
@@ -77,7 +74,6 @@ export default class ObsidianDailyQuestion extends Plugin {
 		// 	},
 		// });
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new SettingTab(this.app, this));
 
 		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)

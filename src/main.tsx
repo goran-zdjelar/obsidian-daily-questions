@@ -1,22 +1,17 @@
-import {
-	App,
-	Editor,
-	MarkdownView,
-	Modal,
-	Notice,
-	Plugin,
-	PluginSettingTab,
-	Setting,
-} from "obsidian";
-import { getQuestionFromOpenAi, parseQuestions } from "./ai";
-import { getRandomNumber } from "./utils";
+import { App, Plugin, PluginSettingTab } from "obsidian";
+import { PluginSettings } from "./components/settings.component";
+
+import * as ReactDOM from "react-dom";
+import * as React from "react";
 
 interface ObsidianDailyQuestionSettings {
-	mySetting: string;
+	includeTags: string;
+	excludeTags: string;
 }
 
 const DEFAULT_SETTINGS: ObsidianDailyQuestionSettings = {
-	mySetting: "default",
+	includeTags: "",
+	excludeTags: "",
 };
 
 import { ExampleView, DAILY_QUESTIONS_VIEW } from "./view";
@@ -83,7 +78,7 @@ export default class ObsidianDailyQuestion extends Plugin {
 		// });
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
+		this.addSettingTab(new SettingTab(this.app, this));
 
 		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
 		// Using this function will automatically remove the event listener when this plugin is disabled.
@@ -127,7 +122,7 @@ export default class ObsidianDailyQuestion extends Plugin {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
+class SettingTab extends PluginSettingTab {
 	plugin: ObsidianDailyQuestion;
 
 	constructor(app: App, plugin: ObsidianDailyQuestion) {
@@ -137,23 +132,20 @@ class SampleSettingTab extends PluginSettingTab {
 
 	display(): void {
 		const { containerEl } = this;
+		const plugin = this.plugin;
 
-		containerEl.empty();
+		containerEl.createDiv();
 
-		containerEl.createEl("h2", { text: "Settings for my awesome plugin." });
-
-		new Setting(containerEl)
-			.setName("Setting #1")
-			.setDesc("It's a secret")
-			.addText((text) =>
-				text
-					.setPlaceholder("Enter your secret")
-					.setValue(this.plugin.settings.mySetting)
-					.onChange(async (value) => {
-						console.log("Secret: " + value);
-						this.plugin.settings.mySetting = value;
-						await this.plugin.saveSettings();
-					})
-			);
+		ReactDOM.render(
+			<PluginSettings
+				includeTags={plugin.settings.includeTags}
+				excludeTags={plugin.settings.excludeTags}
+				onChange={(settingKey: string, value: string) => {
+					plugin.settings[settingKey] = value;
+					plugin.saveSettings();
+				}}
+			/>,
+			containerEl
+		);
 	}
 }
